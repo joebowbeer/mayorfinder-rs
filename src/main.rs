@@ -19,7 +19,7 @@ fn main() {
 fn find_mayor<P: Copy + PartialEq>(knows: fn(P, P) -> bool, peeps: &[P]) -> Option<P> {
     // Find the "most known" person
     let candidate = peeps
-        .into_iter()
+        .iter()
         .fold(None, |acc: Option<P>, b: &P| -> Option<P> {
             match acc {
                 Some(a) if knows(*b, a) => Some(a),
@@ -32,7 +32,7 @@ fn find_mayor<P: Copy + PartialEq>(knows: fn(P, P) -> bool, peeps: &[P]) -> Opti
     match candidate {
         Some(c)
             if peeps
-                .into_iter()
+                .iter()
                 .all(|p| c == *p || (!knows(c, *p) && knows(*p, c))) =>
         {
             candidate
