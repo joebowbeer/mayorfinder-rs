@@ -2,10 +2,7 @@ fn main() {
     let peeps = ["A", "B", "C"];
 
     fn knows(a: &str, b: &str) -> bool {
-        match a {
-            "A" | "C" => b == "B",
-            _ => false,
-        }
+        matches!((a, b), ("A", "B") | ("C", "B"))
     }
 
     println!(
@@ -44,10 +41,7 @@ fn find_mayor<P: Copy + PartialEq>(knows: fn(P, P) -> bool, peeps: &[P]) -> Opti
 #[test]
 fn find_mayor_test() {
     fn knows(a: &str, b: &str) -> bool {
-        match a {
-            "A" | "C" => b == "B",
-            _ => false,
-        }
+        matches!((a, b), ("A", "B") | ("C", "B"))
     }
     assert_eq!(Some("B"), find_mayor(knows, &["A", "B", "C"]), "ABC");
     assert_eq!(None, find_mayor(knows, &["A", "B", "C", "X"]), "ABCX");
